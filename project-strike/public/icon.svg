@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="100" fill="#090b0e"/>
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#ff4655" stroke-width="12" opacity="0.4"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#00e5ff" stroke-width="6" opacity="0.6"/>
+  <!-- Crosshair Reticle -->
+  <line x1="256" y1="30" x2="256" y2="120" stroke="#ff4655" stroke-width="14" stroke-linecap="round"/>
+  <line x1="256" y1="392" x2="256" y2="482" stroke="#ff4655" stroke-width="14" stroke-linecap="round"/>
+  <line x1="30" y1="256" x2="120" y2="256" stroke="#ff4655" stroke-width="14" stroke-linecap="round"/>
+  <line x1="392" y1="256" x2="482" y2="256" stroke="#ff4655" stroke-width="14" stroke-linecap="round"/>
+  <!-- Lightning Strike Symbol -->
+  <polygon points="275,100 170,270 245,270 215,410 345,230 270,230" fill="#00e5ff" stroke="#ffffff" stroke-width="4"/>
+</svg>
