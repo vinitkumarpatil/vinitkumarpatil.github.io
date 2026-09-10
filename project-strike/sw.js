@@ -1,4 +1,7 @@
-const CACHE_NAME = 'project-strike-v1.0.0';
+// VK TRAP — Service Worker v2.0.0
+// Stale-while-revalidate strategy for all game assets
+
+const CACHE_NAME = 'vk-trap-v2.0.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -28,7 +31,7 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Return cached, and fetch update in background (stale-while-revalidate)
+        // Stale-while-revalidate: serve from cache, update in background
         fetch(event.request).then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
@@ -46,7 +49,6 @@ self.addEventListener('fetch', (event) => {
         });
         return networkResponse;
       }).catch(() => {
-        // Offline fallback
         if (event.request.destination === 'document') {
           return caches.match('./index.html');
         }
