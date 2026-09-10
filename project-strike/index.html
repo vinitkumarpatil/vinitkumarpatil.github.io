@@ -763,6 +763,117 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
+    /* Rotate Device Landscape Overlay */
+    #rotate-device-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #090b0e;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999999;
+      text-align: center;
+      padding: 24px;
+      color: #fff;
+    }
+
+    /* Force landscape on mobile devices */
+    @media screen and (orientation: portrait) {
+      #rotate-device-overlay {
+        display: flex !important;
+      }
+    }
+
+    .rotate-phone-anim {
+      width: 70px;
+      height: 110px;
+      border: 3px solid var(--accent-cyan);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+      animation: rotatePhone 2.2s infinite ease-in-out;
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    }
+    .phone-screen {
+      font-size: 1.8rem;
+      color: var(--accent-red);
+    }
+
+    @keyframes rotatePhone {
+      0%, 20% { transform: rotate(0deg); }
+      50%, 80% { transform: rotate(-90deg); }
+      100% { transform: rotate(-90deg); }
+    }
+
+    #rotate-device-overlay h2 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: var(--accent-red);
+      margin-bottom: 12px;
+    }
+
+    #rotate-device-overlay p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    /* Mobile Landscape Optimization */
+    @media screen and (orientation: landscape) and (max-height: 520px) {
+      #menu-header {
+        height: 48px;
+        padding: 0 14px;
+      }
+      .brand { font-size: 1.05rem; }
+      .nav-btn { padding: 4px 8px; font-size: 0.72rem; }
+      .hero-title { font-size: 1.5rem; margin-bottom: 4px; }
+      .hero-desc { font-size: 0.78rem; margin-bottom: 12px; }
+      .mode-cards { gap: 10px; }
+      .mode-card { padding: 12px 16px; }
+      .mode-card h3 { font-size: 1.05rem; margin-bottom: 4px; }
+      .mode-card p { font-size: 0.75rem; margin-bottom: 8px; }
+      .cyber-btn.large { padding: 7px 14px; margin-top: 6px; font-size: 0.8rem; }
+      
+      /* Ergonomic touch controls in horizontal landscape */
+      #touch-actions {
+        right: 12px;
+        bottom: 12px;
+        gap: 8px;
+        grid-template-columns: repeat(3, 48px);
+      }
+      .touch-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+      }
+      .touch-btn.fire-btn {
+        width: 52px;
+        height: 52px;
+        font-size: 1.3rem;
+      }
+      #hud-vitals {
+        width: 175px;
+        padding: 6px 10px;
+      }
+      #hud-weapon {
+        padding: 6px 14px;
+      }
+      #weapon-name-display { font-size: 0.95rem; }
+      #ammo-display { font-size: 1.3rem; }
+      #minimap-wrapper {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
     /* Small Screen Responsive */
     @media (max-width: 768px) {
       .hero-title { font-size: 1.8rem; }
@@ -772,9 +883,21 @@
       #minimap-wrapper { width: 90px; height: 90px; }
     }
   </style>
-  <script type="module" crossorigin src="./assets/index-BllBB9-k.js"></script>
+  <script type="module" crossorigin src="./assets/index-1W10T8KH.js"></script>
 </head>
 <body>
+
+  <!-- Landscape Orientation Warning for Mobile Devices -->
+  <div id="rotate-device-overlay">
+    <div class="rotate-phone-anim">
+      <div class="phone-screen">⚡</div>
+    </div>
+    <h2>ROTATE TO HORIZONTAL MODE</h2>
+    <p>PROJECT STRIKE is a mobile battle shooter built for horizontal (landscape) gameplay. Rotate your phone sideways to play.</p>
+    <button id="btn-force-landscape" class="cyber-btn primary" style="margin-top: 20px; font-size: 0.95rem; padding: 12px 24px;">
+      LOCK LANDSCAPE & FULLSCREEN 🔄
+    </button>
+  </div>
 
   <!-- Loading Splash Screen -->
   <div id="loading-screen">
