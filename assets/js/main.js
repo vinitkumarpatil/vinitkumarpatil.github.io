@@ -939,4 +939,90 @@ document.addEventListener('DOMContentLoaded', () => {
     draw();
   }
 
+  /* ==========================================================================
+     8. SCROLL PROGRESS BAR
+     ========================================================================== */
+  const scrollProgressBar = document.getElementById('scrollProgress');
+  if (scrollProgressBar) {
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      scrollProgressBar.style.width = scrolled + '%';
+    }, { passive: true });
+  }
+
+  /* ==========================================================================
+     9. TOAST NOTIFICATION & COPY EMAIL HELPER
+     ========================================================================== */
+  function showToast(message, iconClass) {
+    iconClass = iconClass || 'fa-solid fa-circle-check';
+    let container = document.querySelector('.toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.className = 'toast-container';
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'toast-item';
+    toast.innerHTML = `<i class="${iconClass}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.classList.add('toast-show');
+    });
+
+    setTimeout(() => {
+      toast.classList.remove('toast-show');
+      setTimeout(() => {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }, 3200);
+  }
+
+  window.showToast = showToast;
+
+  const copyEmailTriggers = document.querySelectorAll('.copy-email-trigger');
+  copyEmailTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = 'vinitkumarpatil55@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          showToast('Email copied to clipboard: ' + email);
+        }).catch(() => {
+          showToast('Email: ' + email);
+        });
+      } else {
+        showToast('Email: ' + email);
+      }
+    });
+  });
+
+  /* ==========================================================================
+     10. REVEAL ON SCROLL
+     ========================================================================== */
+  const revealElements = document.querySelectorAll('.reveal');
+  if (revealElements.length > 0) {
+    if ('IntersectionObserver' in window && !prefersReducedMotion) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add('revealed'));
+    }
+  }
+
 });
